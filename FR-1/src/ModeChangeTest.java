@@ -1,5 +1,13 @@
 //package com.sanjay.fr;
 
+/**
+ * This program is to implement F&R tasks.
+ * @author Sanjay
+ * @version 1.0
+ * @
+ * 
+ */
+
 import java.io.FileInputStream;
 
 import java.io.InputStream;
@@ -96,10 +104,6 @@ public class ModeChangeTest {
 	
 			conUW.close();  
 		}
-		
-		
-		
-		  
 		
 	}
 
