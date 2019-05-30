@@ -24,15 +24,17 @@ public class MWClass
 		Properties properties = new Properties();
 		InputStream input = null;
 			
-		//Queries
-		String queryMW = "UPDATE cfd_schedule_change_mode SET schedule_change_mode = 1";
-		String checkTSM = "select * from schedule_state";
-		String checkSCRecords = "select* from T1MWRTG.genstatus";
+		//Queries Declarations 
+		String queryMW;
+		String checkTSM;
+		String checkSCRecords;
+		
 		
 		//To get DB configurations from property file
-		String Url = properties.getProperty("urlTest");
-		String usernameMW = properties.getProperty("usernameMW");
-		String passwordMW = properties.getProperty("passwordMW");
+		String Url = null;
+		String usernameMW = null;
+		String passwordMW = null;
+		
 		
 		//SQL connection and other declarations
 		Connection conMW;
@@ -49,10 +51,15 @@ public class MWClass
 		{
 			input = new FileInputStream("E:\\Cmd\\Sanjay\\Test\\FR\\config\\configMW.properties");
 			properties.load(input);
+			
+			Url = properties.getProperty("urlTest");
+			usernameMW = properties.getProperty("usernameMW");
+			passwordMW = properties.getProperty("passwordMW");			
 		}
 		catch(IOException e1)
 		{
 			e1.printStackTrace();
+			//loogers to be implemented.
 		}
 		
 //		String commitStmt = "commit";
@@ -64,10 +71,15 @@ public class MWClass
 		catch(ClassNotFoundException e2)
 		{
 			e2.printStackTrace();
+			//loogers to be implemented.
 		}
 		//if(airline.equalsIgnoreCase("MW"))
 		try
 		{
+			queryMW = "UPDATE cfd_schedule_change_mode SET schedule_change_mode = 1";
+			checkTSM = "select * from schedule_state";
+			checkSCRecords = "select* from T1MWRTG.genstatus";
+			
 			conMW = DriverManager.getConnection(Url, usernameMW, passwordMW);
 			System.out.println("Connection Established Successfully to MW DB and the DATABASE NAME IS:"+ conMW.getMetaData().getDatabaseProductName());
 			stmtMW = conMW.createStatement();  
@@ -119,6 +131,7 @@ public class MWClass
 		catch(SQLException e3)
 		{
 			e3.printStackTrace();
+			//loogers to be implemented.
 		}
 	}
 }

@@ -8,23 +8,17 @@
  * 
  */
 
-
-
 //import com.sanjay.fr.utilqueries.*;
 
 public class ModeChangeTest 
 {
-
 	public static void main(String[] args) //throws Exception 
 	{
-		// TODO Auto-generated method stub
-		
-		String airline = args[0];
-		
+		// TODO Auto-generated method stub		
+		String airline = args[0];	
 		/*
 		 * if( airline.equalsIgnoreCase("UW")) { UWClass.utilityUW(airline); }
 		 */
-		
 		switch (airline) 
 		{
 			case "UW":
@@ -89,7 +83,5 @@ public class ModeChangeTest
 		 * 
 		 * conUW.close(); }
 		 */
-
 	}
-
 }
