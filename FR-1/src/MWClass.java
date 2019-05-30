@@ -85,9 +85,6 @@ public class MWClass
 			 * if(checkCommit >0) { System.out.println("Commited"); } else {
 			 * System.out.println("Commit not done."); }
 			 */
-//			ResultSet rsMW = stmtMW.executeQuery(queryMW); 
-//			while(rsMW.next())  
-//			System.out.println(rsMW.getString(1));  
 	
 			conMW.close();  
 		}
