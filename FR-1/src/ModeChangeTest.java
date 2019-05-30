@@ -30,6 +30,10 @@ public class ModeChangeTest
 			case "UW":
 				UWClass.utilityUW(airline);
 			break;
+			
+			case "MW":
+				MWClass.utilityMW(airline);
+			break;
 
 			default:
 				System.out.println("No airline selected.");
