@@ -4,7 +4,7 @@
  * This program is to implement F&R automation tasks.
  * @author Sanjay
  * @version 1.0
- * @
+ * @since 2019-05-27
  * 
  */
 
@@ -15,7 +15,7 @@
 public class ModeChangeTest 
 {
 
-	public static void main(String[] args) throws Exception 
+	public static void main(String[] args) //throws Exception 
 	{
 		// TODO Auto-generated method stub
 		

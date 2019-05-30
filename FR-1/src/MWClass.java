@@ -1,8 +1,8 @@
 /**
- * MW Test Utility Class.
+ * Utility Class for MW Test.
  * @author Sanjay
  * @version 1.0
- * @
+ * @since 2019-05-27
  * 
  */
 
@@ -18,41 +18,69 @@ import java.util.Properties;
 
 public class MWClass 
 {
-
-	public static void utilityMW(String airline) throws IOException, ClassNotFoundException, SQLException
-	{
-		
+	public static void utilityMW(String airline) //throws IOException, ClassNotFoundException, SQLException
+	{		
+		//To declare property file for DB configurations
 		Properties properties = new Properties();
 		InputStream input = null;
-		input = new FileInputStream("E:\\Cmd\\Sanjay\\Test\\FR\\config\\configMW.properties");
-		properties.load(input);
-		
-		
+			
+		//Queries
 		String queryMW = "UPDATE cfd_schedule_change_mode SET schedule_change_mode = 1";
 		String checkTSM = "select * from schedule_state";
 		String checkSCRecords = "select* from T1MWRTG.genstatus";
 		
+		//To get DB configurations from property file
 		String Url = properties.getProperty("urlTest");
 		String usernameMW = properties.getProperty("usernameMW");
 		String passwordMW = properties.getProperty("passwordMW");
+		
+		//SQL connection and other declarations
+		Connection conMW;
+		Statement stmtMW;
+		ResultSet rsTSM;
+		ResultSet rsSCRecords;
+		
+		//Other temp declarations
+		boolean emptySetTSM;
+		boolean emptySetSCRecords;
+		int countTemp;
+		
+		try
+		{
+			input = new FileInputStream("E:\\Cmd\\Sanjay\\Test\\FR\\config\\configMW.properties");
+			properties.load(input);
+		}
+		catch(IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		
 //		String commitStmt = "commit";
 		
-		Class.forName("oracle.jdbc.driver.OracleDriver");  
-		//if(airline.equalsIgnoreCase("MW"))
+		try
 		{
-			Connection conMW = DriverManager.getConnection(Url, usernameMW, passwordMW);
+			Class.forName("oracle.jdbc.driver.OracleDriver");  
+		}
+		catch(ClassNotFoundException e2)
+		{
+			e2.printStackTrace();
+		}
+		//if(airline.equalsIgnoreCase("MW"))
+		try
+		{
+			conMW = DriverManager.getConnection(Url, usernameMW, passwordMW);
 			System.out.println("Connection Established Successfully to MW DB and the DATABASE NAME IS:"+ conMW.getMetaData().getDatabaseProductName());
-			Statement stmtMW = conMW.createStatement();  
-			ResultSet rsTSM = stmtMW.executeQuery(checkTSM);
-			boolean emptySetTSM = true;
+			stmtMW = conMW.createStatement();  
+			rsTSM = stmtMW.executeQuery(checkTSM);
+			emptySetTSM = true;
 	
 			while(rsTSM.next())
 			{
 				emptySetTSM = false;
 			}
 			
-			ResultSet rsSCRecords = stmtMW.executeQuery(checkSCRecords);
-			boolean emptySetSCRecords = true;
+			rsSCRecords = stmtMW.executeQuery(checkSCRecords);
+			emptySetSCRecords = true;
 			
 			while(rsSCRecords.next())
 			{
@@ -64,11 +92,11 @@ public class MWClass
 	//			Statement commitSt = conMW.createStatement();
 	//			String queryMW = "UPDATE cfd_schedule_change_mode SET schedule_change_mode = 1";//QueriesUtil.updateModeTest;
 				System.out.println("No TSM and SC records Exist.");
-				int count = stmtMW.executeUpdate(queryMW); 
+				countTemp = stmtMW.executeUpdate(queryMW); 
 				
 	//			int checkCommit = stmtMW.executeUpdate(commitStmt);
 	
-				if (count > 0)
+				if (countTemp > 0)
 				{
 					System.out.println("Schedule Change Mode is updated to manual.");
 				}
@@ -87,6 +115,10 @@ public class MWClass
 			 */
 	
 			conMW.close();  
+		}
+		catch(SQLException e3)
+		{
+			e3.printStackTrace();
 		}
 	}
 }
