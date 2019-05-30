@@ -8,27 +8,17 @@
  * 
  */
 
-import java.io.FileInputStream;
 
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Properties;
 
 //import com.sanjay.fr.utilqueries.*;
 
-public class ModeChangeTest {
+public class ModeChangeTest 
+{
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception 
+	{
 		// TODO Auto-generated method stub
-
-//		Properties properties = new Properties();
-//		InputStream input = null;
-//		input = new FileInputStream("E:\\Cmd\\Sanjay\\Test\\FR\\config\\config.properties");
-//		properties.load(input);
-//		
+		
 		String airline = args[0];
 		
 		/*
