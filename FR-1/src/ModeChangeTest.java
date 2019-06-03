@@ -1,3 +1,11 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 //package com.sanjay.fr;
 
 /**
@@ -16,21 +24,47 @@ public class ModeChangeTest
 	{
 		// TODO Auto-generated method stub		
 		String airline = args[0];	
-		/*
+		
+		Logger log = Logger.getLogger("log");
+		FileHandler fh;
+		log.setLevel(Level.INFO);
+		try
+		{
+			fh = new FileHandler("E:\\Cmd\\Sanjay\\Test\\FR\\log.log", true);
+			log.addHandler(fh);
+			SimpleFormatter sf = new SimpleFormatter();
+			fh.setFormatter(sf);
+			//log.info("This is a log of deleted files\n");
+		}
+		catch (IOException e1) 
+		{
+			// TODO: handle exception
+			e1.printStackTrace();
+			StringWriter sw = new StringWriter();
+            e1.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+			
+			log.log(Level.WARNING, exceptionAsString);
+		}
+		
+		/*)
 		 * if( airline.equalsIgnoreCase("UW")) { UWClass.utilityUW(airline); }
 		 */
 		switch (airline) 
 		{
 			case "UW":
-				UWClass.utilityUW(airline);
+				log.log(Level.INFO, "Airline selected is : UW.");;
+				UWClass.utilityUW(airline, log);
 			break;
 			
 			case "MW":
-				MWClass.utilityMW(airline);
+				log.log(Level.INFO, "Airline selected is : UW.");;
+				MWClass.utilityMW(airline, log);
 			break;
 
 			default:
 				System.out.println("No airline selected.");
+				log.log(Level.WARNING, "No airline selected.");;
 			break;
 		}
 		/*

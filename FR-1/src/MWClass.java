@@ -9,16 +9,20 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MWClass 
 {
-	public static void utilityMW(String airline) //throws IOException, ClassNotFoundException, SQLException
+	public static void utilityMW(String airline, Logger log) //throws IOException, ClassNotFoundException, SQLException
 	{		
 		//To declare property file for DB configurations
 		Properties properties = new Properties();
@@ -59,6 +63,11 @@ public class MWClass
 		catch(IOException e1)
 		{
 			e1.printStackTrace();
+			StringWriter sw = new StringWriter();
+            e1.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+			
+			log.log(Level.WARNING, exceptionAsString);
 			//loogers to be implemented.
 		}
 		
@@ -71,6 +80,11 @@ public class MWClass
 		catch(ClassNotFoundException e2)
 		{
 			e2.printStackTrace();
+			StringWriter sw = new StringWriter();
+            e2.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+			
+			log.log(Level.WARNING, exceptionAsString);
 			//loogers to be implemented.
 		}
 		//if(airline.equalsIgnoreCase("MW"))
@@ -82,6 +96,8 @@ public class MWClass
 			
 			conMW = DriverManager.getConnection(Url, usernameMW, passwordMW);
 			System.out.println("Connection Established Successfully to MW DB and the DATABASE NAME IS:"+ conMW.getMetaData().getDatabaseProductName());
+			log.log(Level.INFO, "Connection Established Successfully to MW DB and the DATABASE NAME IS: "+ conMW.getMetaData().getDatabaseProductName());
+
 			stmtMW = conMW.createStatement();  
 			rsTSM = stmtMW.executeQuery(checkTSM);
 			emptySetTSM = true;
@@ -103,14 +119,17 @@ public class MWClass
 			{			
 	//			Statement commitSt = conMW.createStatement();
 	//			String queryMW = "UPDATE cfd_schedule_change_mode SET schedule_change_mode = 1";//QueriesUtil.updateModeTest;
-				System.out.println("No TSM and SC records Exist.");
+				System.out.println("No TSM and SC records Exist in MW Test.");
+				log.log(Level.INFO, "No TSM and SC records Exist in MW Test.");;
+				
 				countTemp = stmtMW.executeUpdate(queryMW); 
 				
 	//			int checkCommit = stmtMW.executeUpdate(commitStmt);
 	
 				if (countTemp > 0)
 				{
-					System.out.println("Schedule Change Mode is updated to manual.");
+					System.out.println("Schedule Change Mode is updated to manual in MW Test.");
+					log.log(Level.INFO, "Schedule Change Mode is updated to manual in MW Test.");;
 				}
 				else
 				{
@@ -120,6 +139,7 @@ public class MWClass
 			else
 			{
 				System.out.println("TSM and SC records exist.");
+				log.log(Level.INFO, "TSM and SC records exist in MW Test.");;
 			}
 			/*
 			 * if(checkCommit >0) { System.out.println("Commited"); } else {
@@ -131,6 +151,11 @@ public class MWClass
 		catch(SQLException e3)
 		{
 			e3.printStackTrace();
+			StringWriter sw = new StringWriter();
+            e3.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+			
+			log.log(Level.WARNING, exceptionAsString);
 			//loogers to be implemented.
 		}
 	}
